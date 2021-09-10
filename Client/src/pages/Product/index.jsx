@@ -1,5 +1,5 @@
 import React from "react";
-import { Grid, Typography, TextField, IconButton } from "@material-ui/core";
+import { Grid, Typography } from "@material-ui/core";
 import { useStyles } from "./styles";
 import { useParams } from "react-router";
 import images from "../../assets/images";
@@ -52,7 +52,6 @@ export default function DetailProduct({ history }) {
                   type="number"
                   variant="outlined"
                   defaultValue={1}
-                  InputProps={{ inputProps: {} }}
                 />
               </Grid>
 

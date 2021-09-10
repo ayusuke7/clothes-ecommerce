@@ -6,8 +6,19 @@ export const useStyles = makeStyles((theme) => ({
     maxWidth: SIZES.MAX_WIDHT,
     minHeight: "100vh",
     backgroundColor: theme.appColors.white,
-    padding: theme.spacing(10, 4),
+    padding: theme.spacing(5, 4),
     margin: theme.spacing(4, 0),
     alignContent: "flex-start",
+  },
+  title: {
+    fontSize: 28,
+    color: theme.palette.primary.main,
+    margin: theme.spacing(4, 1),
+  },
+
+  header: {
+    height: 60,
+    backgroundColor: theme.appColors.ligthGray,
+    alignContent: "center",
   },
 }));
