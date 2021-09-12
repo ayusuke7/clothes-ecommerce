@@ -3,7 +3,24 @@ const Product = require("../models/product");
 const productController = {
   async all(req, res) {
     try {
-      const result = await Product.findAll();
+      const result = await Product.findAll({
+        include: [
+          {
+            association: "resources",
+            attributes: ["name", "path", "base64", "svg", "extension"],
+            through: {
+              attributes: [],
+            },
+          },
+          {
+            association: "categorys",
+            attributes: ["id", "name"],
+            through: {
+              attributes: [],
+            },
+          },
+        ],
+      });
       res.status(200).json({ result });
     } catch (error) {
       res.status(500).json({ message: error });
@@ -12,7 +29,32 @@ const productController = {
 
   async find(req, res) {
     try {
-      const result = await Product.findByPk(req.params.id);
+      const result = await Product.findByPk(req.params.id, {
+        include: [
+          {
+            association: "resources",
+            attributes: ["name", "path", "base64", "svg", "extension"],
+            through: {
+              attributes: [],
+            },
+          },
+          {
+            association: "categorys",
+            attributes: ["id", "name"],
+            through: {
+              attributes: [],
+            },
+          },
+          {
+            association: "inventory",
+            attributes: ["amount", "limit"],
+            include: {
+              association: "atribute",
+              attributes: ["name", "value"],
+            },
+          },
+        ],
+      });
       res.status(200).json({ result });
     } catch (error) {
       res.status(500).json({ message: error });
@@ -27,6 +69,7 @@ const productController = {
       res.status(500).json({ message: error });
     }
   },
+
   async update(req, res) {
     try {
       const produto = await Product.findByPk(req.params.id);
@@ -48,6 +91,7 @@ const productController = {
       res.status(500).json({ message: error });
     }
   },
+
   async delete(req, res) {
     res.status(200).json({ message: "delete method" });
   },

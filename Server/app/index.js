@@ -16,6 +16,8 @@ dotenv.config({ path: path.resolve(__dirname, "..", ".env") });
 const auth = require("./routes/auth");
 const user = require("./routes/users");
 const products = require("./routes/products");
+const categorys = require("./routes/categorys");
+const resources = require("./routes/resources");
 
 const app = express();
 
@@ -32,5 +34,7 @@ app.use("/users", middlewareJwt, user);
 /* Routes Unless Middleware for GET  */
 const middlewareGet = authMiddleware(["GET"]);
 app.use("/products", middlewareGet, products);
+app.use("/categorys", middlewareGet, categorys);
+app.use("/resources", middlewareGet, resources);
 
 module.exports = app;

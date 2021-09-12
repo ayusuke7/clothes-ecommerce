@@ -17,7 +17,24 @@ class Product extends Model {
   }
 
   static associate(models) {
-    // this.hasMany(models.Address, { foreignKey: "user_id", as: "addresses" });
+    this.belongsToMany(models.Resource, {
+      foreignKey: "products_id",
+      through: "products_has_resources",
+      as: "resources",
+      timestamps: false,
+    });
+
+    this.belongsToMany(models.Category, {
+      foreignKey: "products_id",
+      through: "products_has_categorys",
+      as: "categorys",
+      timestamps: false,
+    });
+
+    this.hasMany(models.Inventory, {
+      foreignKey: "products_id",
+      as: "inventory",
+    });
   }
 }
 
