@@ -10,6 +10,7 @@ export const appColors = {
   gray: "#C4C4C4",
   ligthGray: "#F8f8f8",
   darkGray: "#313131",
+  link: "blue",
 };
 
 const AppTheme = createTheme(

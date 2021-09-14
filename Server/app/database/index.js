@@ -5,6 +5,7 @@ const connection = new Sequelize(dbConfig);
 
 const User = require("../models/user");
 const Address = require("../models/adresses");
+const Contact = require("../models/contacts");
 const Product = require("../models/product");
 const Resource = require("../models/resouce");
 const Category = require("../models/category");
@@ -13,6 +14,7 @@ const Atributes = require("../models/atributes");
 
 User.init(connection);
 Address.init(connection);
+Contact.init(connection);
 Product.init(connection);
 Resource.init(connection);
 Category.init(connection);
@@ -21,6 +23,7 @@ Atributes.init(connection);
 
 User.associate(connection.models);
 Address.associate(connection.models);
+Contact.associate(connection.models);
 Product.associate(connection.models);
 Resource.associate(connection.models);
 Category.associate(connection.models);

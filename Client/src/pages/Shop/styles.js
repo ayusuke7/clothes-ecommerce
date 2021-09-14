@@ -18,11 +18,25 @@ export const useStyles = makeStyles((theme) => ({
   },
 
   filter: {
-    margin: theme.spacing(3, 1, 4, 1),
+    margin: theme.spacing(4, 1),
+    justifyContent: "space-between",
   },
 
   slider: {
     width: 200,
     margin: theme.spacing(0, 4),
+
+    [theme.breakpoints.down("xs")]: {
+      margin: 0,
+      width: "100%",
+    },
+  },
+
+  formControl: {
+    marginTop: 20,
+
+    [theme.breakpoints.up("md")]: {
+      maxWidth: 300,
+    },
   },
 }));

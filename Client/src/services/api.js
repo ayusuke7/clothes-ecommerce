@@ -1,8 +1,43 @@
 import axios from "axios";
-import { ENDPOINTS } from "../commons/endpoints";
+import session from "../utils/session";
+import { toast } from "react-toastify";
+//import { LOGIN_OR_REGISTER_PAGE } from "../routes/routes";
 
-const api = axios.create({
-  baseURL: ENDPOINTS.BASE_URL,
+export const baseURL = process.env.REACT_APP_API_URL || "http://localhost:3333";
+
+const api = axios.create({ baseURL });
+
+api.interceptors.request.use((config) => {
+  if (config?.url !== "/login") {
+    config.headers = {
+      Authorization: session.getToken(),
+    };
+  }
+  config.crossdomain = true;
+  return config;
 });
+
+api.interceptors.response.use(
+  (res) => res,
+  (error) => {
+    const data = error?.response?.data;
+    const status = error?.response?.status;
+
+    if (status >= 400 && status < 500) {
+      toast.warning(`${data?.message} [Código: ${status}]`, {
+        style: { color: "#000" },
+      });
+
+      if (status === 403) {
+        session.clear();
+        //window.location.assign(LOGIN_OR_REGISTER_PAGE);
+      }
+    } else if (status >= 500) {
+      toast.error(`Op's, Ocorreu um erro! [Código.: ${status}]`);
+    }
+
+    Promise.reject(error);
+  }
+);
 
 export default api;

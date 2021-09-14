@@ -39,15 +39,32 @@ const authController = {
 
   async register(req, res) {
     try {
-      const { firstname, lastname, email, password } = req.body;
+      const { password, ...rest } = req.body;
+
+      const exists = await User.findOne({ where: { email: rest.email } });
+
+      if (exists) {
+        return res.status(404).send({ message: "user is exists" });
+      }
+
       const encrypPass = bcrypt.hashSync(password, 7);
 
-      const user = await User.create({
-        firstname,
-        lastname,
-        email,
-        password: encrypPass,
-      });
+      const user = await User.create(
+        {
+          password: encrypPass,
+          ...rest,
+        },
+        {
+          include: [
+            {
+              association: "addresses",
+            },
+            {
+              association: "contacts",
+            },
+          ],
+        }
+      );
 
       return res.send({ result: user });
     } catch (error) {

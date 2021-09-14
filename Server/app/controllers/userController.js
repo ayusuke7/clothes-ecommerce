@@ -15,7 +15,19 @@ const userController = {
   },
   async find(req, res) {
     try {
-      const users = await User.findByPk(req.params.id);
+      const users = await User.findByPk(req.params.id, {
+        attributes: {
+          exclude: ["password"],
+        },
+        include: [
+          {
+            association: "addresses",
+          },
+          {
+            association: "contacts",
+          },
+        ],
+      });
       res.status(200).json({ result: users });
     } catch (error) {
       res.status(500).json({ message: error });

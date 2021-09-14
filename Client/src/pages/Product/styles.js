@@ -6,20 +6,29 @@ export const useStyles = makeStyles((theme) => ({
     maxWidth: SIZES.MAX_WIDHT,
     minHeight: "100vh",
     backgroundColor: theme.appColors.white,
-    padding: theme.spacing(10, 4),
-    margin: theme.spacing(4, 0),
     alignContent: "flex-start",
+    margin: theme.spacing(4, 0),
+    padding: theme.spacing(10, 4),
+
+    [theme.breakpoints.down("sm")]: {
+      padding: theme.spacing(5, 2),
+    },
   },
   image: {
     height: 450,
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
+    marginBottom: 15,
 
     "& img": {
       width: "100%",
       height: "100%",
       objectFit: "cover",
+    },
+
+    [theme.breakpoints.down("xs")]: {
+      marginBottom: 10,
     },
   },
 
@@ -51,17 +60,24 @@ export const useStyles = makeStyles((theme) => ({
 
   carrocel: {
     "& img": {
-      width: 150,
-      height: 150,
-      objectFit: "cover",
-      marginRight: 15,
-      marginTop: 15,
+      width: "100%",
+      height: "100%",
+      maxHeight: 130,
+      objectFit: "contain",
       opacity: 0.5,
     },
 
     "& img:hover": {
       opacity: 1,
       cursor: "pointer",
+    },
+
+    [theme.breakpoints.down("sm")]: {
+      justifyContent: "space-between",
+    },
+
+    "& .MuiGrid-grid-xs-3, .MuiGrid-grid-xs-4": {
+      padding: "0 5px",
     },
   },
 

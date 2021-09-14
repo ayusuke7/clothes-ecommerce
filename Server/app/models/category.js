@@ -4,6 +4,7 @@ class Category extends Model {
   static init(sequelize) {
     super.init(
       {
+        tags: DataTypes.STRING,
         name: DataTypes.STRING,
         description: DataTypes.STRING,
       },

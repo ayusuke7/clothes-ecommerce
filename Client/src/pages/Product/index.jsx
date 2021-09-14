@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Grid, Typography } from "@material-ui/core";
 import { useStyles } from "./styles";
 import { useParams } from "react-router";
@@ -10,62 +10,124 @@ import {
   LocalShipping,
   ShoppingCart,
 } from "@material-ui/icons";
+import {
+  PRODUCT_FIELDS as pf,
+  RESOURCES_FIELDS as rf,
+  INVENTORY_FIELDS as vf,
+} from "../../commons/fields";
+
 import ProductCard from "../../components/ProductCard";
+import { calculateOffPrice } from "../../utils/helpers";
+import { useDispatch, useSelector } from "react-redux";
+import { infoProductActions } from "../../store/slices/info-product";
 
 export default function DetailProduct({ history }) {
   const classes = useStyles();
   const params = useParams();
+  const dispatch = useDispatch();
+
+  const [preview, setPreview] = useState(null);
+  const [qtd, setQtd] = useState(1);
+
+  const { infoProduct } = useSelector((state) => ({
+    infoProduct: state.infoProduct.data,
+  }));
+
+  const resources = infoProduct?.[pf.RESOURCES];
+  const saldoProd = infoProduct?.[pf.INVENTORY].reduce(
+    (a, b) => a + b[vf.AMOUNT],
+    0
+  );
+
+  const disabledButton = qtd < 1 || qtd > saldoProd;
+
+  const handleChangeQtd = ({ target }) => {
+    setQtd(Number(target.value));
+  };
+
+  const getInfoProduct = useCallback(() => {
+    if (params?.id) {
+      dispatch(infoProductActions.getInfoProduct(params.id));
+    }
+  }, [params, dispatch]);
+
+  useEffect(() => {
+    getInfoProduct();
+  }, [getInfoProduct]);
+
+  useEffect(() => {
+    if (resources?.length) {
+      setPreview(resources[0][rf.PATH]);
+    }
+  }, [resources]);
 
   return (
     <Grid container className={classes.container}>
-      <Grid item xs={12} container spacing={4}>
-        <Grid item xs={12} md={6} container>
+      <Grid item xs={12} container>
+        <Grid item xs={12} md container>
           <Grid item xs={12} className={classes.image}>
-            <img src={images.example} alt="" />
+            <img src={preview} alt={preview} />
           </Grid>
-          <Grid item xs={12} className={classes.carrocel}>
-            <img src={images.example} alt="" />
-            <img src={images.example} alt="" />
-            <img src={images.example} alt="" />
+          <Grid item xs={12} container className={classes.carrocel}>
+            {resources?.map((resouce) => (
+              <Grid item xs={4} md={3} key={resouce[rf.NAME]}>
+                <img
+                  src={resouce[rf.PATH]}
+                  alt={resouce[rf.NAME]}
+                  onClick={() => {
+                    setPreview(resouce[rf.PATH]);
+                  }}
+                />
+              </Grid>
+            ))}
           </Grid>
         </Grid>
-        <Grid item xs={12} md={6} container alignContent="flex-start">
+        <div style={{ width: 40, height: 40 }} />
+        <Grid item xs={12} md container alignContent="flex-start">
           <Grid item xs={12} className={classes.info}>
-            <Typography variant="h4">{params.name}</Typography>
+            <Typography variant="h4">{infoProduct?.[pf.NAME]}</Typography>
 
             <Typography variant="h6" className={classes.price}>
-              <span>R$79,90</span>
-              R$ 59,90
+              {calculateOffPrice(
+                infoProduct?.[pf.PRICE],
+                infoProduct?.[pf.OFF]
+              )}
             </Typography>
 
             <Typography variant="subtitle2">
-              Neque porro quisquam est, qui dolore ipsum quia dolor sit amet,
-              consectetur adipisci velit, sed quia non incidunt lores ta porro
-              ame. numquam eius modi tempora incidunt lores ta porro ame.
+              {infoProduct?.[pf.DESCRIPTION]}
             </Typography>
           </Grid>
 
           <Grid item xs={12} container spacing={3}>
-            <Grid item xs={12} container>
-              <Grid item xs={8} sm={2}>
+            <Grid item xs sm={10} container spacing={2}>
+              <Grid item xs={12} sm={2}>
                 <CustomTextField
                   type="number"
                   variant="outlined"
-                  defaultValue={1}
+                  defaultValue={qtd}
+                  onChange={handleChangeQtd}
+                  onInput={(e) => {
+                    e.target.value = Math.max(0, parseInt(e.target.value))
+                      .toString()
+                      .slice(0, 2);
+                  }}
                 />
               </Grid>
 
-              <Grid item xs sm={10}>
+              <Grid item xs={12} sm={5}>
                 <CustomButton
                   bgColor="gray"
-                  width={140}
                   height={55}
-                  margin="0 10px"
+                  disabled={disabledButton}
                 >
                   <AddShoppingCart />
                   <span>Adicionar</span>
                 </CustomButton>
-                <CustomButton width={140} height={55}>
+              </Grid>
+
+              <Grid item xs={12} sm={5}>
+                <CustomButton height={55} disabled={disabledButton}>
                   <ShoppingCart />
                   <span>COMPRAR</span>
                 </CustomButton>
@@ -109,9 +171,7 @@ export default function DetailProduct({ history }) {
         <Typography variant="h6"> Descrição</Typography>
         <Typography variant="subtitle2">
           <br />
-          Neque porro quisquam est, qui dolore ipsum quia dolor sit amet,
-          consectetur adipisci velit, sed quia non incidunt lores ta porro ame.
-          numquam eius modi tempora incidunt lores ta porro ame.
+          {infoProduct?.[pf.DESCRIPTION]}
         </Typography>
       </Grid>
 

@@ -5,6 +5,7 @@ class Address extends Model {
     super.init(
       {
         address: DataTypes.STRING,
+        district: DataTypes.STRING,
         number: DataTypes.INTEGER,
         city: DataTypes.STRING,
         state: DataTypes.STRING,
@@ -18,7 +19,7 @@ class Address extends Model {
   }
 
   static associate(models) {
-    this.belongsTo(models.User, { foreignKey: "user_id", as: "user" });
+    this.belongsTo(models.User, { foreignKey: "users_id", as: "user" });
   }
 }
 

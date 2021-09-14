@@ -18,6 +18,7 @@ export default function TextFormField({ name, ...rest }) {
   return (
     <CustomTextField
       {...rest}
+      variant="outlined"
       inputRef={inputRef}
       defaultValue={defaultValue}
       error={Boolean(error)}

@@ -14,7 +14,7 @@ const productsSlice = createSlice({
       state.loading = true;
     },
     setProductData: (state, { payload }) => {
-      state.data = [...state.data, ...payload];
+      state.data = [...payload];
       state.loading = false;
     },
     setLoading: (state, { payload }) => {
@@ -29,7 +29,6 @@ const productsSlice = createSlice({
 
 const { actions, reducer } = productsSlice;
 
-export const { getProductData, setProductData, setLoading, setMessage } =
-  actions;
+export const productActions = actions;
 
 export default reducer;

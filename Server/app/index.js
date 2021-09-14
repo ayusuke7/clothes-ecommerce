@@ -18,6 +18,7 @@ const user = require("./routes/users");
 const products = require("./routes/products");
 const categorys = require("./routes/categorys");
 const resources = require("./routes/resources");
+const payments = require("./routes/payments");
 
 const app = express();
 
@@ -36,5 +37,6 @@ const middlewareGet = authMiddleware(["GET"]);
 app.use("/products", middlewareGet, products);
 app.use("/categorys", middlewareGet, categorys);
 app.use("/resources", middlewareGet, resources);
+app.use("/payments", middlewareGet, payments);
 
 module.exports = app;

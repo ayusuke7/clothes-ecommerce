@@ -14,6 +14,11 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: bgColor || theme.palette.primary.main,
       filter: "brightness(80%)",
     },
+
+    "&.MuiButton-root.Mui-disabled": {
+      color: theme.appColors.white,
+      opacity: 0.5,
+    },
   }),
 }));
 

@@ -9,13 +9,19 @@ export const useStyles = makeStyles((theme) => ({
       height: 250,
       width: "100%",
       objectFit: "cover",
-      marginBottom: 15,
+      marginBottom: 10,
     },
   }),
 
   category: {
-    fontSize: 14,
+    fontSize: 12,
     marginBottom: 15,
+
+    "& a": {
+      marginRight: 8,
+      color: theme.appColors.primary,
+      textDecoration: "none",
+    },
   },
 
   name: {
@@ -28,6 +34,12 @@ export const useStyles = makeStyles((theme) => ({
     fontSize: 14,
     marginBottom: 15,
     //fontWeight: 600,
+
+    "& span": {
+      color: theme.appColors.gray,
+      textDecoration: "line-through",
+      marginRight: 10,
+    },
   },
 
   button: {

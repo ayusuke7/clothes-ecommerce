@@ -1,6 +1,6 @@
-import { Button, Grid } from "@material-ui/core";
 import React from "react";
 import CustomButton from "../Button";
+import { Grid } from "@material-ui/core";
 import { useStyles } from "./styles";
 
 export default function ProductCard({
