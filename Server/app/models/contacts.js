@@ -4,9 +4,8 @@ class Contact extends Model {
   static init(sequelize) {
     super.init(
       {
-        cellphone: DataTypes.STRING,
-        email: DataTypes.INTEGER,
         phone: DataTypes.STRING,
+        email: DataTypes.STRING,
         site: DataTypes.STRING,
         whatsapp: DataTypes.TINYINT,
       },

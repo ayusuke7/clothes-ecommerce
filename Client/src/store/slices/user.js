@@ -1,9 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
+import session from "../../utils/session";
 
 const initialState = {
-  data: null,
+  data: session.getUser(),
+  info: null,
   message: null,
   loading: false,
+  registed: false,
 };
 
 const usersSlice = createSlice({
@@ -16,6 +19,26 @@ const usersSlice = createSlice({
     setLoginResponse: (state, { payload }) => {
       state.data = payload;
       state.loading = false;
+      state.registed = false;
+    },
+    getRegisterRequest: (state) => {
+      state.loading = true;
+    },
+    setRegisterResponse: (state) => {
+      state.loading = false;
+      state.registed = true;
+    },
+    getInfoRequest: (state) => {
+      state.loading = true;
+    },
+    setInfoResponse: (state, { payload }) => {
+      state.info = payload;
+      state.loading = false;
+    },
+    setLogout: (state) => {
+      session.clear();
+      state.data = null;
+      state.info = null;
     },
     setLoading: (state, { payload }) => {
       state.loading = payload;

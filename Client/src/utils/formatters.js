@@ -31,3 +31,9 @@ export const formatMoney = (value) => {
     currency: "BRL",
   }).format(numValue);
 };
+
+export const formatNumberFone = (fone) => {
+  if (!fone || fone?.length > 11) return fone;
+  const pattern = fone.length > 10 ? "(##) #####-####" : "(##) ####-####";
+  return toMask(fone, pattern);
+};

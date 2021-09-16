@@ -2,13 +2,14 @@ import React from "react";
 import { makeStyles, Button } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
-  root: ({ height, width, bgColor, margin }) => ({
+  root: ({ height, width, bgColor, color, margin }) => ({
     backgroundColor: bgColor || theme.palette.primary.main,
-    color: theme.appColors.white,
+    color: color || theme.appColors.white,
     fontWeight: 600,
     height: height || 40,
     width: width || "100%",
     margin: margin || 0,
+    border: color ? `1px solid ${color}` : null,
 
     "&:hover": {
       backgroundColor: bgColor || theme.palette.primary.main,
@@ -27,10 +28,11 @@ export default function CustomButton({
   height,
   width,
   bgColor,
+  color,
   margin,
   ...rest
 }) {
-  const classes = useStyles({ height, width, bgColor, margin });
+  const classes = useStyles({ height, width, bgColor, color, margin });
 
   return (
     <Button {...rest} className={classes.root}>

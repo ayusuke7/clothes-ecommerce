@@ -2,9 +2,15 @@ import { makeStyles } from "@material-ui/core/styles";
 
 export const useStyles = makeStyles((theme) => ({
   customInput: ({ height, width, textAlign }) => ({
-    "& .MuiOutlinedInput-root": { height, width },
-    "& .MuiOutlinedInput-input": { textAlign },
     width,
+
+    "& .MuiOutlinedInput-root": { height, width },
+
+    "& .MuiOutlinedInput-input": { textAlign },
+
+    "& .MuiInputBase-root.Mui-disabled": {
+      color: "rgba(0, 0, 0, 0.65)",
+    },
   }),
   typography: {
     marginTop: "6px",

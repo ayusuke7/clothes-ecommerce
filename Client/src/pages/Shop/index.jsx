@@ -64,7 +64,9 @@ export default function ShopPage({ history }) {
   };
 
   const setFilterProducts = () => {
-    const orderBy = [...products];
+    const orderBy = products.filter((f) => Number(f[pf.PRICE]) <= value);
+
+    /* Ordernação */
     if (order === "2") {
       orderBy.sort(
         (a, b) => new Date(b[pf.CREATED_AT]) - new Date(a[pf.CREATED_AT])
@@ -113,6 +115,7 @@ export default function ShopPage({ history }) {
           <Typography>{LABELS.LB_FILTER_PRICE}</Typography>
           <div className={classes.slider}>
             <Slider
+              step={10}
               max={max}
               value={value}
               onChange={handleChangePrice}

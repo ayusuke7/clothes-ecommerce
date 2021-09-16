@@ -9,6 +9,7 @@ export const USERS_FIELDS = {
   LAST_NAME: "lastname",
   EMAIL: "email",
   TYPE: "type",
+  CPF: "cpf",
   PASSWORD: "password",
   CONFIRM_PASSWORD: "confirm",
   CONTACTS: "contacts",
@@ -70,7 +71,7 @@ export const ADDRESS_FIELDS = {
 };
 
 export const CONTACT_FIELDS = {
-  CELL: "cellphone",
+  TYPE: "tipo",
   EMAIL: "email",
   PHONE: "phone",
   SITE: "site",

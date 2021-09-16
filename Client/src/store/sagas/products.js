@@ -11,7 +11,7 @@ function* listAllProducts() {
     const { data } = yield call(service.getAllProducts);
     yield put(productActions.setProductData(data.result));
   } catch (error) {
-    yield put(productActions.setMessage(error));
+    yield put(productActions.setMessage(error?.message));
   }
 }
 
@@ -20,7 +20,7 @@ function* findInfoProduct({ payload }) {
     const { data } = yield call(service.getInfoProduct, payload);
     yield put(infoProductActions.setInfoProduct(data.result));
   } catch (error) {
-    yield put(infoProductActions.setMessage(error));
+    yield put(infoProductActions.setMessage(error?.message));
   }
 }
 

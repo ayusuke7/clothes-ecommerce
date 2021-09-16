@@ -18,7 +18,7 @@ api.interceptors.request.use((config) => {
 });
 
 api.interceptors.response.use(
-  (res) => res,
+  (res) => Promise.resolve(res),
   (error) => {
     const data = error?.response?.data;
     const status = error?.response?.status;
@@ -27,16 +27,13 @@ api.interceptors.response.use(
       toast.warning(`${data?.message} [Código: ${status}]`, {
         style: { color: "#000" },
       });
-
-      if (status === 403) {
-        session.clear();
-        //window.location.assign(LOGIN_OR_REGISTER_PAGE);
-      }
-    } else if (status >= 500) {
-      toast.error(`Op's, Ocorreu um erro! [Código.: ${status}]`);
     }
 
-    Promise.reject(error);
+    if (status === 403) session.clear();
+
+    if (status >= 500) toast.error(data?.message);
+
+    return Promise.reject(error);
   }
 );
 

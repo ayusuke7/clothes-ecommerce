@@ -230,3 +230,20 @@ export const spreadText = (text, limit = 50, spreed = true) => {
   if (!text || text.length <= limit) return text;
   return text.substring(0, limit).concat(spreed ? "..." : "");
 };
+
+export const removeMask = (value) => {
+  if (!value) return value;
+
+  return value.replace(/[^\w]+/g, "");
+};
+
+export const removeMaskFromObject = (obj, fields = []) => {
+  const assign = Object.assign({}, obj);
+  const tmpFields = fields.length > 0 ? fields : Object.keys(obj);
+
+  tmpFields.forEach((f) => {
+    assign[f] = assign[f].replace(/[^\w]+/g, "");
+  });
+
+  return assign;
+};

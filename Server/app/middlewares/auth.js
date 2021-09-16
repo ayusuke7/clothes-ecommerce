@@ -1,4 +1,5 @@
 const jwt = require("jsonwebtoken");
+const { STATUS_MESSAGE } = require("../utils/commons");
 
 module.exports = (unlessMethod = [], unlessPath = []) => {
   return async function (req, res, next) {
@@ -11,7 +12,9 @@ module.exports = (unlessMethod = [], unlessPath = []) => {
     const { authorization } = req.headers;
 
     if (!authorization) {
-      return res.status(401).send({ message: "request not authorized" });
+      return res.status(401).send({
+        message: STATUS_MESSAGE.UNAUTORIZED,
+      });
     }
 
     const token = authorization.replace("Bearer", "").trim();

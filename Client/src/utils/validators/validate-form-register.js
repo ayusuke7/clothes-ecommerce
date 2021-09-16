@@ -7,6 +7,7 @@ export const validateFormRegistro = async (data, setErrors) => {
 
     const schema = Yup.object().shape({
       [uf.EMAIL]: Yup.string().email("Email Inválido"),
+      [uf.CPF]: Yup.string().cpfCnpj("CPF Inválido"),
       [uf.PASSWORD]: Yup.string()
         .min(8)
         .test({

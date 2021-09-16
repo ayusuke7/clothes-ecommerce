@@ -10,18 +10,16 @@ import "react-toastify/dist/ReactToastify.css";
 import "./styles/global.css";
 
 ReactDOM.render(
-  <React.StrictMode>
-    <ThemeProvider theme={AppTheme}>
-      <App />
-      <ToastContainer
-        closeOnClick
-        autoClose={4000}
-        theme="colored"
-        position="bottom-center"
-        style={{ textAlign: "center" }}
-      />
-    </ThemeProvider>
-  </React.StrictMode>,
+  <ThemeProvider theme={AppTheme}>
+    <App />
+    <ToastContainer
+      closeOnClick
+      autoClose={4000}
+      theme="colored"
+      position="bottom-center"
+      style={{ textAlign: "center" }}
+    />
+  </ThemeProvider>,
   document.getElementById("root")
 );
 

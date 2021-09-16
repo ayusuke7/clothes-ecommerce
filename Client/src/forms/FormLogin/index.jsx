@@ -3,7 +3,6 @@ import { Grid, IconButton, Typography } from "@material-ui/core";
 import { Visibility, VisibilityOff } from "@material-ui/icons";
 import TextFormField from "../../components/TextFormField";
 import { USERS_FIELDS as uf } from "../../commons/fields";
-import CustomButton from "../../components/Button";
 
 export default function FormLogin({ error }) {
   const [showPass, setShowPass] = useState(false);
@@ -31,11 +30,6 @@ export default function FormLogin({ error }) {
             </IconButton>
           }
         />
-      </Grid>
-      <Grid item xs={12} container justifyContent="center">
-        <CustomButton width={380} type="submit">
-          Entrar
-        </CustomButton>
       </Grid>
     </Grid>
   );

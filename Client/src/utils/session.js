@@ -1,11 +1,16 @@
-const USER_TOKEN = "user@token";
+const USER_TOKEN = "mrm@user";
 
 const session = {
-  setToken(data) {
-    sessionStorage.setItem(USER_TOKEN, data);
+  setUser(data) {
+    sessionStorage.setItem(USER_TOKEN, JSON.stringify(data));
+  },
+  getUser() {
+    const data = sessionStorage.getItem(USER_TOKEN);
+    return data ? JSON.parse(data)?.user : null;
   },
   getToken() {
-    sessionStorage.getItem(USER_TOKEN);
+    const data = sessionStorage.getItem(USER_TOKEN);
+    return data ? JSON.parse(data)?.token : null;
   },
   clear() {
     sessionStorage.clear();

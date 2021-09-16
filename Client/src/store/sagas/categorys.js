@@ -10,7 +10,7 @@ function* listAllCategorys() {
     const { data } = yield call(service.getAllCategorys);
     yield put(categorysActions.setDataCategorys(data.result));
   } catch (error) {
-    yield put(categorysActions.setMessage(error));
+    yield put(categorysActions.setMessage(error?.message));
   }
 }
 

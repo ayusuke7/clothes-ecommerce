@@ -7,7 +7,7 @@ export const validateFormLogin = async (data, setErrors) => {
 
     const schema = Yup.object().shape({
       [uf.EMAIL]: Yup.string().trim().email(),
-      [uf.PASSWORD]: Yup.string().min(8),
+      [uf.PASSWORD]: Yup.string().min(8).trim(),
     });
 
     await schema.validate(data, { abortEarly: false });

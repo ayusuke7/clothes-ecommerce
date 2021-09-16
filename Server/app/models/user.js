@@ -9,6 +9,7 @@ class User extends Model {
         email: DataTypes.STRING,
         password: DataTypes.STRING,
         type: DataTypes.STRING,
+        cpf: DataTypes.STRING,
       },
       {
         sequelize,

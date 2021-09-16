@@ -3,8 +3,10 @@ import { createBrowserHistory } from "history";
 import { Provider } from "react-redux";
 import { Router } from "react-router-dom";
 
+import Loading from "./components/Loading";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
+
 import AppRoutes from "./routes";
 import { store } from "./store";
 
@@ -19,6 +21,7 @@ export default function App() {
           <AppRoutes />
         </Container>
         <Footer />
+        <Loading />
       </Router>
     </Provider>
   );
